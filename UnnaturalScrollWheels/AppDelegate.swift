@@ -117,7 +117,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func disableMouseAccel() {
         // Based on https://github.com/apsun/NoMouseAccel
-        
+
+        if Options.shared.disableMouseAccel {
+            Options.shared.accel = -1
+        } else {
+            Options.shared.accel = Options.shared.origAccel
+        }
+
         let client: IOHIDEventSystemClient = IOHIDEventSystemClientCreateSimpleClient(kCFAllocatorDefault)
         let mouseAccelerationType: CFString = kIOHIDMouseAccelerationType as NSString
         
